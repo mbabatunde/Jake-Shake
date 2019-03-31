@@ -49,15 +49,18 @@ def main():
     # Possible exceptions could have to be with how many days in between, etc.
 
     print("🗓  Last Game Date: " + correct_month + " " + str(coverted_jake_date.day) + " " + str(coverted_jake_date.year))
-    if ((coverted_now - coverted_jake_date).days < 4):
+    lastgame = (coverted_now - coverted_jake_date).days
+    if (lastgame < 4):
         if (clean_goals > 1):
             print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
         elif (clean_goals > 0):
             print(Fore.GREED + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
         else:
             print(Fore.RED + "❌ 👎 Jake didn't score. He's a bum")
-    else:
+    elif (lastgame > 4 and clean_goals > 0):
         print(Fore.BLUE + "😭 Been awhile since Jake scored")
+    else:
+        print(Fore.YELLOW + "😭 Jake didn't score in his last game and Penguins haven't played in awhile ")
     #     elif (last_days < 0 and last_days > - 4):
     #         print ("Exception since it's the start of the month and the last game was the end of the month")
     #     else:
