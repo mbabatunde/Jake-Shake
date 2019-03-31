@@ -37,13 +37,16 @@ correct_day = int(clean_date[4:].strip())
 # print(correct_day)
 
 now = datetime.datetime.now()
+last_days = now.day - correct_day
 
 if (now.month == months[correct_month]):
-    if (now.day - correct_day < 4):
+    if (last_days < 4 and last_days >= 0):
         if (clean_goals > 0):
             print("Can get a jake shake today")
         else:
             print("Jake didn't score. He's a bum")
+    elif (last_days < 0 and last_days > - 4):
+        print ("Exception since it's the start of the month and the last game was the end of the month")
     else:
         print("Greater than 4 days since Jake scored")
 else:
