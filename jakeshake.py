@@ -45,6 +45,7 @@ def main():
         coverted_jake_date = date(datetime.now().year, months[correct_month], correct_day)
     # Possible exceptions could have to be with how many days in between, etc.
 
+    print("🗓  Last Game Date: " + correct_month + " " + str(coverted_jake_date.day) + " " + str(coverted_jake_date.year))
     if ((coverted_now - coverted_jake_date).days < 4):
         if (clean_goals > 1):
             print("✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
