@@ -36,19 +36,23 @@ correct_day = int(clean_date[4:].strip())
 # print("cd")
 # print(correct_day)
 
-now = datetime.now()
 coverted_now = date(datetime.now().year, datetime.now().month, datetime.now().day)
-last_days = now.day - correct_day
-coverted_jake_date = date(now.year, months[correct_month], correct_day) #Bad assumption with year
+if (datetime.now().month == 1 and months[correct_month] == 12):
+    # Grabs last year
+    coverted_jake_date = date(datetime.now().year - 1, months[correct_month], correct_day) #Bad assumption with year
+else:
+    coverted_jake_date = date(datetime.now().year, months[correct_month], correct_day)
 # Possible exceptions could have to be with how many days in between, etc.
 
 if ((coverted_now - coverted_jake_date).days < 4):
-    if (clean_goals > 0):
-        print("Can get a jake shake today")
+    if (clean_goals > 1):
+        print("🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
+    elif (clean_goals > 0):
+        print("🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
     else:
-        print("Jake didn't score. He's a bum")
+        print("👎 Jake didn't score. He's a bum")
 else:
-    print("Been awhile since Jake scored")
+    print("😭 Been awhile since Jake scored")
 #     elif (last_days < 0 and last_days > - 4):
 #         print ("Exception since it's the start of the month and the last game was the end of the month")
 #     else:
