@@ -2,11 +2,14 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup 
 import re
 from datetime import datetime, date
+import colorama
+from colorama import Fore, Back, Style
 
 def main():
     quote_page = 'https://www.nhl.com/player/jake-guentzel-8477404'
     page = urlopen(quote_page)
 
+    colorama.init()
     # parser = etree.HTMLParser()
     # tree = etree.parse(StringIO(soup), parser)
     # result = etree.tostring(tree.getroot(), pretty_print=True, method="html")
@@ -48,13 +51,13 @@ def main():
     print("🗓  Last Game Date: " + correct_month + " " + str(coverted_jake_date.day) + " " + str(coverted_jake_date.year))
     if ((coverted_now - coverted_jake_date).days < 4):
         if (clean_goals > 1):
-            print("✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
+            print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
         elif (clean_goals > 0):
-            print("✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
+            print(Fore.GREED + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
         else:
-            print("❌ 👎 Jake didn't score. He's a bum")
+            print(Fore.RED + "❌ 👎 Jake didn't score. He's a bum")
     else:
-        print("😭 Been awhile since Jake scored")
+        print(Fore.BLUE + "😭 Been awhile since Jake scored")
     #     elif (last_days < 0 and last_days > - 4):
     #         print ("Exception since it's the start of the month and the last game was the end of the month")
     #     else:
