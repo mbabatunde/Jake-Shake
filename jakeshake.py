@@ -4,6 +4,7 @@ import re
 from datetime import datetime, date
 import colorama
 from colorama import Fore, Back, Style
+import calendar
 
 def main():
     quote_page = 'https://www.nhl.com/player/jake-guentzel-8477404'
@@ -48,7 +49,13 @@ def main():
         coverted_jake_date = date(datetime.now().year, months[correct_month], correct_day)
     # Possible exceptions could have to be with how many days in between, etc.
 
-    print("🗓  Last Game Date: " + correct_month + " " + str(coverted_jake_date.day) + " " + str(coverted_jake_date.year))
+    game_month = correct_month.capitalize()
+    new_game_month = ""
+    for i in range(len(calendar.month_abbr)):
+        if game_month == calendar.month_abbr[i]:
+            new_game_month = calendar.month_name[i]
+
+    print("🗓  Last Game Date: " + new_game_month + " " + str(coverted_jake_date.day) + ", " + str(coverted_jake_date.year))
     lastgame = (coverted_now - coverted_jake_date).days
     if (lastgame < 4):
         if (clean_goals > 1):
