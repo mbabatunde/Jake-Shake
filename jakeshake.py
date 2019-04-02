@@ -5,6 +5,8 @@ from datetime import datetime, date
 import colorama
 from colorama import Fore, Back, Style
 import calendar
+from twilio.rest import Client
+import os
 
 def main():
     quote_page = 'https://www.nhl.com/player/jake-guentzel-8477404'
@@ -16,7 +18,9 @@ def main():
     # result = etree.tostring(tree.getroot(), pretty_print=True, method="html")
     # print("result time")
     # print(result)
-
+    # twilio_account = input("What is your Twilio account number ")
+    # twilio_auth = input("What is your Twilio authentication token ")
+    client = Client(os.environ['TWILIO_ACCOUNT_SID'], os.environ['TWILIO_ACCOUNT_TOKEN'])
     # Parsing
     soup = BeautifulSoup(page, 'html.parser')
     name_box = soup.find_all('div', attrs={'class': 'responsive-datatable__scrollable'})
@@ -57,17 +61,28 @@ def main():
 
     print("🗓  Last Game Date: " + new_game_month + " " + str(coverted_jake_date.day) + ", " + str(coverted_jake_date.year))
     lastgame = (coverted_now - coverted_jake_date).days
+    result = ""
     if (lastgame < 4):
         if (clean_goals > 1):
+            result = "\n✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today."
             print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
         elif (clean_goals > 0):
+            result = "\n✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today."
             print(Fore.GREED + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
         else:
+            result = "\n❌ 👎 Jake didn't score. He's a bum"
             print(Fore.RED + "❌ 👎 Jake didn't score. He's a bum")
     elif (lastgame > 4 and clean_goals > 0):
+        result = "\n😭 Been awhile since Jake scored"
         print(Fore.BLUE + "😭 Been awhile since Jake scored")
     else:
+        result = "\n😭 Jake didn't score in his last game and Penguins haven't played in awhile "
         print(Fore.YELLOW + "😭 Jake didn't score in his last game and Penguins haven't played in awhile ")
+
+    number = input("Number you're sending this to: ")
+    client.messages.create(to= "+1" + number,
+                            from_='+12053033977',
+                            body=result)
     #     elif (last_days < 0 and last_days > - 4):
     #         print ("Exception since it's the start of the month and the last game was the end of the month")
     #     else:
