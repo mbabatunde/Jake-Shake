@@ -64,11 +64,11 @@ def main():
     result = ""
     if (lastgame < 4):
         if (clean_goals > 1):
-            result = "\n✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today."
-            print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goals today.")
+            result = "\n✅ 🥛 HALF OFF! Jake scored " + str(clean_goals) + " goals today."
+            print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + str(clean_goals) + " goals today.")
         elif (clean_goals > 0):
-            result = "\n✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today."
-            print(Fore.GREED + "✅ 🥛 HALF OFF! Jake scored " + clean_goals + " goal today.")
+            result = "\n✅ 🥛 HALF OFF! Jake scored " + str(clean_goals) + " goal today."
+            print(Fore.GREEN + "✅ 🥛 HALF OFF! Jake scored " + str(clean_goals) + " goal today.")
         else:
             result = "\n❌ 👎 Jake didn't score. He's a bum"
             print(Fore.RED + "❌ 👎 Jake didn't score. He's a bum")
@@ -79,8 +79,11 @@ def main():
         result = "\n😭 Jake didn't score in his last game and Penguins haven't played in awhile "
         print(Fore.YELLOW + "😭 Jake didn't score in his last game and Penguins haven't played in awhile ")
 
-    number = input("Number you're sending this to: ")
-    client.messages.create(to= "+1" + number,
+    # number = input("Number you're sending this to: ")
+    # TODO: Don't hardcode the number. Another environment variable?
+    
+    for i in numbers:
+        client.messages.create(to= "+1" + i,
                             from_='+12053033977',
                             body=result)
     #     elif (last_days < 0 and last_days > - 4):
